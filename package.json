@@ -1,0 +1,28 @@
+{
+  "name": "@sixach/wp-scripts",
+  "version": "0.0.1",
+  "description": "Collection of reusable scripts for WordPress development.",
+  "author": "sixa AG",
+  "license": "GPL-3.0-or-later",
+  "keywords": [
+    "wordpress",
+    "gutenberg",
+    "scripts"
+  ],
+  "homepage": "https://github.com/sixach/wp-scripts#readme",
+  "bugs": {
+    "url": "https://github.com/sixach/wp-scripts/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sixach/wp-scripts.git"
+  },
+  "files": [
+    "bin",
+    "scripts",
+    "utils"
+  ],
+  "bin": {
+    "sixa-wp-scripts": "./bin/wp-scripts.js"
+  }
+}
