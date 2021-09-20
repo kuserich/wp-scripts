@@ -17,18 +17,18 @@ const cp = require( 'child_process' );
  * @returns {int} Status (exit code) returned by the command.
  */
 const runCommand = ( command, args = [], options = {} ) => {
-    // TODO: add verbose
-    const { status, stderr, error } = cp.spawnSync( command, args, options );
-    if ( status !== 0 ) {
-        const fullCommand = [ command, args.join( ' ' ) ].join( ' ' );
-        console.error( `Process exited with code ${status}` );
-        console.error( `Command ${ fullCommand }` );
-        console.error( stderr.toString('utf8') );
-        process.exit();
-    }
-    return status;
-}
+	// TODO: add verbose
+	const { status, stderr, error } = cp.spawnSync( command, args, options );
+	if ( status !== 0 ) {
+		const fullCommand = [ command, args.join( ' ' ) ].join( ' ' );
+		console.error( `Process exited with code ${ status }` );
+		console.error( `Command ${ fullCommand }` );
+		console.error( stderr.toString( 'utf8' ) );
+		process.exit();
+	}
+	return status;
+};
 
 module.exports = {
-    runCommand,
+	runCommand,
 };

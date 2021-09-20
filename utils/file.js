@@ -24,8 +24,7 @@ const pathExists = ( fileOrFolder ) => existsSync( fileOrFolder );
  *
  * // => boolean true
  */
-const existsInProject = ( fileOrFolder ) =>
-    pathExists( getProjectPath( fileOrFolder ) );
+const existsInProject = ( fileOrFolder ) => pathExists( getProjectPath( fileOrFolder ) );
 
 /**
  * Return the absolute path built from the current working directory
@@ -36,21 +35,20 @@ const existsInProject = ( fileOrFolder ) =>
  * @param {string} fileOrFolder Relative path to a file or directory.
  * @returns {string} Absolute path including package directory.
  */
-const getProjectPath = ( fileOrFolder ) =>
-    path.join( process.cwd(), fileOrFolder );
+const getProjectPath = ( fileOrFolder ) => path.join( process.cwd(), fileOrFolder );
 
 const getScriptsDirPath = () => {
-    return path.join( path.dirname( __dirname ), 'scripts' );
-}
+	return path.join( path.dirname( __dirname ), 'scripts' );
+};
 
 const getScriptPath = ( name ) => {
-    return path.join( getScriptsDirPath(), `${name}.js` );
-}
+	return path.join( getScriptsDirPath(), `${ name }.js` );
+};
 
 module.exports = {
-    pathExists,
-    existsInProject,
-    getProjectPath,
-    getScriptsDirPath,
-    getScriptPath,
+	pathExists,
+	existsInProject,
+	getProjectPath,
+	getScriptsDirPath,
+	getScriptPath,
 };
