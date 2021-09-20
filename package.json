@@ -22,6 +22,11 @@
     "scripts",
     "utils"
   ],
+  "scripts": {
+    "format": "wp-scripts format",
+    "lint:js": "wp-scripts lint-js",
+    "lint:js-fix": "wp-scripts lint-js --fix"
+  },
   "bin": {
     "sixa-wp-scripts": "./bin/wp-scripts.js"
   },
