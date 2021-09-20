@@ -1,6 +1,20 @@
+/**
+ * Internal dependencies.
+ */
 const { getProjectPath, BUNDLE_IGNORE, NPM_IGNORE, GIT_IGNORE, existsInProject } = require( '../utils' );
 
+/**
+ * Built-in Node library to interact with the file system.
+ *
+ * @see    https://nodejs.org/api/fs.html
+ */
 const { readFileSync, readdirSync, createWriteStream, lstatSync, createReadStream } = require( 'fs' );
+
+/**
+ * Node library to build archives.
+ *
+ * @see    https://www.archiverjs.com/docs/archiver
+ */
 const archiver = require( 'archiver' );
 
 /**
@@ -13,8 +27,8 @@ const archiver = require( 'archiver' );
  * from `.gitignore`.
  *
  * @function
- * @since 1.0.0
- * @return {Array} List of files to ignore during bundling.
+ * @since       1.0.0
+ * @return      {Array}    List of files to ignore during bundling.
  */
 const getIgnoredFiles = () => {
 	let ignoreFile = BUNDLE_IGNORE;
@@ -34,8 +48,8 @@ const getIgnoredFiles = () => {
  * Return an array of files and directories to be included in the `.zip` archive.
  *
  * @function
- * @since 1.0.0
- * @return {Array} List of files and directories to add to the `.zip` archive.
+ * @since     1.0.0
+ * @return    {Array}    List of files and directories to add to the `.zip` archive.
  */
 const getZipFileList = () => {
 	const ignoredFiles = getIgnoredFiles();
@@ -43,6 +57,11 @@ const getZipFileList = () => {
 };
 
 /**
+ * Build a `.zip` archive from the current package.
+ * Ignored files are not included in the `.zip` archive.
+ *
+ * @function
+ * @since       1.0.0
  */
 const buildZipFromPackage = () => {
 	// Create a file to stream archive data to.
@@ -83,4 +102,5 @@ const buildZipFromPackage = () => {
 	archive.finalize();
 };
 
+// This file is invoked with `node` and must thus execute the script operation.
 buildZipFromPackage();
