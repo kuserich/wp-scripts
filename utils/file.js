@@ -24,7 +24,7 @@ const cp = require('child_process');
 const archiver = require( 'archiver' );
 
 /**
- * Returns true if the given path resolves relative to the package root and false otherwise.
+ * Return true if the given path resolves relative to the package root and false otherwise.
  * Path may be a file or a directory. Path must be relative to the package root.
  *
  * @function
@@ -41,7 +41,7 @@ const existsInProject = ( path ) =>
     existsSync( getProjectPath( path ) );
 
 /**
- * Returns the absolute path built from the current working directory
+ * Return the absolute path built from the current working directory
  * for a given relative path.
  *
  * @function
@@ -53,7 +53,7 @@ const getProjectPath = ( path ) =>
     path.join( process.cwd(), path );
 
 /**
- * Returns an array of files and directories to be included in the `.zip` archive.
+ * Return an array of files and directories to be included in the `.zip` archive.
  *
  * @function
  * @since 1.0.0
@@ -65,7 +65,7 @@ const getZipFileList = () => {
 }
 
 /**
- * Returns an array of files to ignore during bundling.
+ * Return an array of files to ignore during bundling.
  * These files will be excluded when the `.zip` archive is created.
  *
  * The files to ignore are read from a `.bundleignore` file. If no such file is
