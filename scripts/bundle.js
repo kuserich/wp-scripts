@@ -1,3 +1,53 @@
+const { getProjectPath } = require( '../utils' );
+
+const { readFileSync, readdirSync, createWriteStream, lstatSync, createReadStream } = require( 'fs' );
+const archiver = require( 'archiver' );
+
+
+/**
+ * Return an array of files to ignore during bundling.
+ * These files will be excluded when the `.zip` archive is created.
+ *
+ * The files to ignore are read from a `.bundleignore` file. If no such file is
+ * available in the package, the list of files is read from `.npmignore`. If no
+ * such file is available either, this function attempts to read the list of files
+ * from `.gitignore`.
+ *
+ * @function
+ * @since 1.0.0
+ * @returns {array} List of files to ignore during bundling.
+ */
+const getIgnoredFiles = () => {
+    let ignoreFile = BUNDLE_IGNORE;
+    if ( ! existsInProject( ignoreFile ) ) {
+        ignoreFile = NPM_IGNORE;
+    } else if ( ! existsInProject( ignoreFile ) ) {
+        ignoreFile = GIT_IGNORE;
+    } else if ( ! existsInProject( ignoreFile ) ) {
+        // TODO: Add confirmation
+        return [];
+    }
+
+    return readFileSync( getProjectPath( ignoreFile ) )
+        .toString()
+        .split("\n");
+}
+
+/**
+ * Return an array of files and directories to be included in the `.zip` archive.
+ *
+ * @function
+ * @since 1.0.0
+ * @returns {array} List of files and directories to add to the `.zip` archive.
+ */
+const getZipFileList = () => {
+    const ignoredFiles = getIgnoredFiles();
+    return readdirSync( process.cwd ).filter( file => ! ignoredFiles.includes( file ) );
+}
+
+/**
+ *
+ */
 const buildZipFromPackage = () => {
     // create a file to stream archive data to.
     console.log( getProjectPath( 'plugin.zip' ) );
@@ -46,3 +96,5 @@ const buildZipFromPackage = () => {
     // 'close', 'end' or 'finish' may be fired right after calling this method so register to them beforehand
     archive.finalize();
 }
+
+buildZipFromPackage();

@@ -1,9 +1,4 @@
 /**
- * Internal dependencies.
- */
-const { BUNDLE_IGNORE, GIT_IGNORE, NPM_IGNORE } = require( './constants' );
-
-/**
  * Node File System library.
  */
 const { existsSync, readFileSync, readdirSync } = require( 'fs' );
@@ -13,15 +8,7 @@ const { existsSync, readFileSync, readdirSync } = require( 'fs' );
  */
 const path = require( 'path' );
 
-/**
- * Node Process Library.
- */
-const cp = require('child_process');
-
-/**
- * Node Archive Library.
- */
-const archiver = require( 'archiver' );
+const pathExists = ( fileOrFolder ) => existsSync( fileOrFolder );
 
 /**
  * Return true if the given path resolves relative to the package root and false otherwise.
@@ -29,7 +16,7 @@ const archiver = require( 'archiver' );
  *
  * @function
  * @since 1.0.0
- * @param {string} path Relative path to a file or directory.
+ * @param {string} fileOrFolder Relative path to a file or directory.
  * @return {boolean} True if the path exists, false otherwise.
  * @example
  *
@@ -37,8 +24,8 @@ const archiver = require( 'archiver' );
  *
  * // => boolean true
  */
-const existsInProject = ( path ) =>
-    existsSync( getProjectPath( path ) );
+const existsInProject = ( fileOrFolder ) =>
+    pathExists( getProjectPath( fileOrFolder ) );
 
 /**
  * Return the absolute path built from the current working directory
@@ -46,56 +33,24 @@ const existsInProject = ( path ) =>
  *
  * @function
  * @since 1.0.0
- * @param {string} path Relative path to a file or directory.
+ * @param {string} fileOrFolder Relative path to a file or directory.
  * @returns {string} Absolute path including package directory.
  */
-const getProjectPath = ( path ) =>
-    path.join( process.cwd(), path );
+const getProjectPath = ( fileOrFolder ) =>
+    path.join( process.cwd(), fileOrFolder );
 
-/**
- * Return an array of files and directories to be included in the `.zip` archive.
- *
- * @function
- * @since 1.0.0
- * @returns {array} List of files and directories to add to the `.zip` archive.
- */
-const getZipFileList = () => {
-    const ignoredFiles = getIgnoredFiles();
-    return readdirSync( process.cwd ).filter( file => ! ignoredFiles.includes( file ) );
+const getScriptsDirPath = () => {
+    return path.join( path.dirname( __dirname ), 'scripts' );
 }
 
-/**
- * Return an array of files to ignore during bundling.
- * These files will be excluded when the `.zip` archive is created.
- *
- * The files to ignore are read from a `.bundleignore` file. If no such file is
- * available in the package, the list of files is read from `.npmignore`. If no
- * such file is available either, this function attempts to read the list of files
- * from `.gitignore`.
- *
- * @function
- * @since 1.0.0
- * @returns {array} List of files to ignore during bundling.
- */
-const getIgnoredFiles = () => {
-    let ignoreFile = BUNDLE_IGNORE;
-    if ( ! existsInProject( ignoreFile ) ) {
-        ignoreFile = NPM_IGNORE;
-    } else if ( ! existsInProject( ignoreFile ) ) {
-        ignoreFile = GIT_IGNORE;
-    } else if ( ! existsInProject( ignoreFile ) ) {
-        // TODO: Add confirmation
-        return [];
-    }
-
-    return readFileSync( getProjectPath( ignoreFile ) )
-        .toString()
-        .split("\n");
+const getScriptPath = ( name ) => {
+    return path.join( getScriptsDirPath(), `${name}.js` );
 }
 
 module.exports = {
+    pathExists,
     existsInProject,
     getProjectPath,
-    getZipFileList,
-    getIgnoredFiles,
+    getScriptsDirPath,
+    getScriptPath,
 };

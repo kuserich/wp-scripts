@@ -1,6 +1,6 @@
-const { UNUSED_COMPOSER_DEPENDENCIES } = require( './constants' );
-const { getProjectPath } = require( './file' );
-
+/**
+ * Node Process Library.
+ */
 const cp = require( 'child_process' );
 
 /**
@@ -29,40 +29,6 @@ const runCommand = ( command, args = [] ) => {
     return status;
 }
 
-const npmInstall = () => {
-    console.log( 'Installing NPM dependencies...' );
-    runCommand( 'npm', [ 'install' ] );
-    console.log( 'Installed NPM dependencies.' );
-}
-
-const npmBuild = () => {
-    console.log( 'Building bundle assets...' );
-    runCommand( 'npm', [ 'run', 'build' ] );
-    console.log( 'Built bundle assets.' );
-}
-
-const composerInstall = () => {
-    console.log( 'Installing composer dependencies...' );
-    runCommand( 'composer', [ 'install', '--no-dev', '--optimize-autoloader' ] );
-    console.log( 'Installed composer dependencies.' );
-}
-
-const hasComposerProductionDependencies = ( whitelist = UNUSED_COMPOSER_DEPENDENCIES ) => {
-    const composerJson = require( getProjectPath( 'composer.json' ) );
-
-    // Bail early if there are no production requirements.
-    if ( ! composerJson.require ) {
-        return false;
-    }
-
-    // Return true if any of the required packages is not whitelisted.
-    const keys = Object.keys( composerJson.require );
-    for ( let i = 0; i < keys.length; i++ ) {
-        const key = keys[i];
-        if ( ! whitelist.includes( key ) ) {
-            return true;
-        }
-    }
-
-    return false;
-}
+module.exports = {
+    runCommand,
+};

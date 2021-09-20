@@ -1,10 +1,17 @@
-const { UNUSED_COMPOSER_DEPENDENCIES, BUNDLE_IGNORE, GIT_IGNORE, NPM_IGNORE } = require( './constants' );
+const {
+    UNUSED_COMPOSER_DEPENDENCIES,
+    BUNDLE_IGNORE,
+    GIT_IGNORE,
+    NPM_IGNORE,
+} = require( './constants' );
+
 const {
     existsInProject,
     getProjectPath,
-    getZipFileList,
-    getIgnoredFiles
 } = require( './file' );
+
+const { runCommand } = require( './package' );
+const { runScript } = require( './cli' );
 
 module.exports = {
     UNUSED_COMPOSER_DEPENDENCIES,
@@ -13,6 +20,6 @@ module.exports = {
     NPM_IGNORE,
     existsInProject,
     getProjectPath,
-    getZipFileList,
-    getIgnoredFiles,
+    runCommand,
+    runScript,
 };
