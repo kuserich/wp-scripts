@@ -26,6 +26,7 @@
     "sixa-wp-scripts": "./bin/wp-scripts.js"
   },
   "devDependencies": {
+    "@wordpress/scripts": "^18.0.1",
     "archiver": "^5.3.0"
   }
 }
