@@ -102,10 +102,31 @@ const getScriptPath = ( name ) => {
 	return path.join( getScriptsDirPath(), `${ name }.js` );
 };
 
+/**
+ * Return a human readable format of the given size in bytes.
+ *
+ * @function
+ * @since       1.0.0
+ * @param       {int}       sizeInBytes    Integer value.
+ * @returns     {string}                   Human readable file size.
+ * @example
+ *
+ * getHumanReadableSize( 1126 );
+ *
+ * // => string '1.1kB'
+ */
+const getHumanReadableSize = ( sizeInBytes ) => {
+	if ( sizeInBytes > 1024 ) {
+		return `${Math.round( sizeInBytes / 1024 * 10) / 10}kB`;
+	}
+	return `${sizeInBytes}B`;
+}
+
 module.exports = {
 	pathExists,
 	existsInProject,
 	getProjectPath,
 	getScriptsDirPath,
 	getScriptPath,
+	getHumanReadableSize,
 };

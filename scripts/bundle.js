@@ -1,14 +1,14 @@
 /**
  * Internal dependencies.
  */
-const { getProjectPath, BUNDLE_IGNORE, NPM_IGNORE, GIT_IGNORE, existsInProject } = require( '../utils' );
+const { getProjectPath, BUNDLE_IGNORE, NPM_IGNORE, GIT_IGNORE, existsInProject, getHumanReadableSize } = require( '../utils' );
 
 /**
  * Built-in Node library to interact with the file system.
  *
  * @see    https://nodejs.org/api/fs.html
  */
-const { readFileSync, readdirSync, createWriteStream, lstatSync, createReadStream } = require( 'fs' );
+const { readFileSync, readdirSync, createWriteStream, lstatSync, createReadStream, statSync } = require( 'fs' );
 
 /**
  * Node library to build archives.
@@ -88,18 +88,22 @@ const buildZipFromPackage = () => {
 	archive.pipe( output );
 
 	const filesToAdd = getZipFileList();
+	const addedFiles = {};
 	for ( let i = 0; i < filesToAdd.length; i++ ) {
 		const fileName = filesToAdd[ i ];
 		const filePath = getProjectPath( fileName );
 		if ( lstatSync( filePath ).isDirectory() ) {
 			archive.directory( filePath, fileName );
+			addedFiles[ fileName ] = getHumanReadableSize( lstatSync( filePath ).size );
 		} else {
 			archive.append( createReadStream( filePath ), { name: fileName } );
+			addedFiles[ fileName ] = getHumanReadableSize( statSync( filePath ).size );
 		}
 	}
 	// finalize the archive (ie we are done appending files but streams have to finish yet)
 	// 'close', 'end' or 'finish' may be fired right after calling this method so register to them beforehand
 	archive.finalize();
+	console.log( addedFiles );
 };
 
 // This file is invoked with `node` and must thus execute the script operation.
