@@ -1,7 +1,7 @@
 const buildZipFromPackage = () => {
     // create a file to stream archive data to.
-    console.log( getProjectFilePath( 'plugin.zip' ) );
-    const output = createWriteStream( getProjectFilePath( 'plugin.zip' ) );
+    console.log( getProjectPath( 'plugin.zip' ) );
+    const output = createWriteStream( getProjectPath( 'plugin.zip' ) );
     const archive = archiver( 'zip' ); // TODO: can we use compression?
 
     archive.on( 'warning', function( warning ) {
@@ -33,7 +33,7 @@ const buildZipFromPackage = () => {
     const filesToAdd = getZipFileList();
     for ( let i = 0; i < filesToAdd.length; i++ ) {
         const fileName = filesToAdd[i];
-        const filePath = getProjectFilePath( fileName );
+        const filePath = getProjectPath( fileName );
         if ( lstatSync( filePath ).isDirectory() ) {
             console.log( 'appending dir ' + filePath );
             archive.directory( filePath, fileName );

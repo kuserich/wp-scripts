@@ -29,7 +29,7 @@ const composerInstall = () => {
 }
 
 const hasComposerProductionDependencies = ( whitelist = UNUSED_COMPOSER_DEPENDENCIES ) => {
-    const composerJson = require( getProjectFilePath( 'composer.json' ) );
+    const composerJson = require( getProjectPath( 'composer.json' ) );
 
     // Bail early if there are no production requirements.
     if ( ! composerJson.require ) {

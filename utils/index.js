@@ -1,10 +1,8 @@
-/**
- * Internal dependencies
- */
-
-
-const { getArgsFromCLI } = require( './process' );
+const { UNUSED_COMPOSER_DEPENDENCIES, BUNDLE_IGNORE, GIT_IGNORE, NPM_IGNORE } = require( './constants' );
 
 module.exports = {
-    getArgsFromCLI,
+    UNUSED_COMPOSER_DEPENDENCIES,
+    BUNDLE_IGNORE,
+    GIT_IGNORE,
+    NPM_IGNORE,
 };
