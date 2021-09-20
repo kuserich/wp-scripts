@@ -33,7 +33,7 @@ const existsInProject = ( fileOrFolder ) => pathExists( getProjectPath( fileOrFo
  * @function
  * @since 1.0.0
  * @param {string} fileOrFolder Relative path to a file or directory.
- * @returns {string} Absolute path including package directory.
+ * @return {string} Absolute path including package directory.
  */
 const getProjectPath = ( fileOrFolder ) => path.join( process.cwd(), fileOrFolder );
 

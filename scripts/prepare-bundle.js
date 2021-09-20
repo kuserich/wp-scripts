@@ -2,8 +2,8 @@ const { UNUSED_COMPOSER_DEPENDENCIES, getProjectPath, runCommand } = require( '.
 
 /**
  *
- * @param whitelist
- * @returns {boolean}
+ * @param  whitelist
+ * @return {boolean}
  */
 const hasComposerProductionDependencies = ( whitelist = UNUSED_COMPOSER_DEPENDENCIES ) => {
 	const composerJson = require( getProjectPath( 'composer.json' ) );

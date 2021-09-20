@@ -14,7 +14,7 @@ const archiver = require( 'archiver' );
  *
  * @function
  * @since 1.0.0
- * @returns {array} List of files to ignore during bundling.
+ * @return {Array} List of files to ignore during bundling.
  */
 const getIgnoredFiles = () => {
 	let ignoreFile = BUNDLE_IGNORE;
@@ -35,7 +35,7 @@ const getIgnoredFiles = () => {
  *
  * @function
  * @since 1.0.0
- * @returns {array} List of files and directories to add to the `.zip` archive.
+ * @return {Array} List of files and directories to add to the `.zip` archive.
  */
 const getZipFileList = () => {
 	const ignoredFiles = getIgnoredFiles();
@@ -43,7 +43,6 @@ const getZipFileList = () => {
 };
 
 /**
- *
  */
 const buildZipFromPackage = () => {
 	// Create a file to stream archive data to.
