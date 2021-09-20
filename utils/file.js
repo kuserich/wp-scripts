@@ -1,7 +1,7 @@
 /**
  * Node File System library.
  */
-const { existsSync, readFileSync, readdirSync } = require( 'fs' );
+const { existsSync } = require( 'fs' );
 
 /**
  * Node Path library.
