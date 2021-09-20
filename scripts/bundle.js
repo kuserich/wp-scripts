@@ -1,4 +1,4 @@
-const { getProjectPath } = require( '../utils' );
+const { getProjectPath, BUNDLE_IGNORE, NPM_IGNORE, GIT_IGNORE, existsInProject } = require( '../utils' );
 
 const { readFileSync, readdirSync, createWriteStream, lstatSync, createReadStream } = require( 'fs' );
 const archiver = require( 'archiver' );
@@ -42,15 +42,14 @@ const getIgnoredFiles = () => {
  */
 const getZipFileList = () => {
     const ignoredFiles = getIgnoredFiles();
-    return readdirSync( process.cwd ).filter( file => ! ignoredFiles.includes( file ) );
+    return readdirSync( process.cwd() ).filter( file => ! ignoredFiles.includes( file ) );
 }
 
 /**
  *
  */
 const buildZipFromPackage = () => {
-    // create a file to stream archive data to.
-    console.log( getProjectPath( 'plugin.zip' ) );
+    // Create a file to stream archive data to.
     const output = createWriteStream( getProjectPath( 'plugin.zip' ) );
     const archive = archiver( 'zip' ); // TODO: can we use compression?
 
@@ -63,18 +62,11 @@ const buildZipFromPackage = () => {
         throw error;
     });
 
-    // This event is fired when the data source is drained no matter what was the data source.
-    // It is not part of this library but rather from the NodeJS Stream API.
-    // @see: https://nodejs.org/api/stream.html#stream_event_end
-    output.on( 'end', function() {
-        console.log('Data has been drained');
-    });
-
     // listen for all archive data to be written
     // 'close' event is fired only when a file descriptor is involved
     output.on( 'close', function() {
-        console.log(archive.pointer() + ' total bytes');
-        console.log('archiver has been finalized and the output file descriptor has closed.');
+        console.log( archive.pointer() + ' total bytes');
+        console.log( 'Archiver has been finalized and the output file descriptor has closed.' );
     });
 
     // pipe archive data to the file
@@ -85,10 +77,8 @@ const buildZipFromPackage = () => {
         const fileName = filesToAdd[i];
         const filePath = getProjectPath( fileName );
         if ( lstatSync( filePath ).isDirectory() ) {
-            console.log( 'appending dir ' + filePath );
             archive.directory( filePath, fileName );
         } else {
-            console.log( 'appending file ' + filePath );
             archive.append( createReadStream( filePath ), { name: fileName } );
         }
     }

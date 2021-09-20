@@ -41,5 +41,4 @@ const prepareBundle = () => {
     }
 };
 
-console.log( 'helo :) ');
 prepareBundle();
