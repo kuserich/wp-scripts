@@ -1,6 +1,6 @@
 {
   "name": "@sixach/wp-scripts",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Collection of reusable scripts for WordPress development.",
   "author": "sixa AG",
   "license": "GPL-3.0-or-later",
