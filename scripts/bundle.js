@@ -69,7 +69,7 @@ const buildZipFromPackage = () => {
         console.log( 'Archiver has been finalized and the output file descriptor has closed.' );
     });
 
-    // pipe archive data to the file
+    // Pipe archive data to the file.
     archive.pipe( output );
 
     const filesToAdd = getZipFileList();
