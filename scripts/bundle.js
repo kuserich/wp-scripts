@@ -80,8 +80,8 @@ const buildZipFromPackage = () => {
 	// listen for all archive data to be written
 	// 'close' event is fired only when a file descriptor is involved
 	output.on( 'close', function () {
-		console.log( archive.pointer() + ' total bytes' );
-		console.log( 'Archiver has been finalized and the output file descriptor has closed.' );
+		console.log( '===' );
+		console.log( `${ getHumanReadableSize( archive.pointer() ) } total` );
 	} );
 
 	// Pipe archive data to the file.
@@ -103,7 +103,13 @@ const buildZipFromPackage = () => {
 	// finalize the archive (ie we are done appending files but streams have to finish yet)
 	// 'close', 'end' or 'finish' may be fired right after calling this method so register to them beforehand
 	archive.finalize();
-	console.log( addedFiles );
+
+	console.log( '=== Archive Contents ===' );
+	const keys = Object.keys( addedFiles );
+	for ( let i = 0; i < keys.length; i++ ) {
+		const key = keys[i];
+		console.log( `${ addedFiles[key] } ${key}`);
+	}
 };
 
 // This file is invoked with `node` and must thus execute the script operation.
