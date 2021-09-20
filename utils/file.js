@@ -92,3 +92,10 @@ const getIgnoredFiles = () => {
         .toString()
         .split("\n");
 }
+
+module.exports = {
+    existsInProject,
+    getProjectPath,
+    getZipFileList,
+    getIgnoredFiles,
+};

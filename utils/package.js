@@ -1,4 +1,23 @@
-const runCommand = ( command, args ) => {
+const { UNUSED_COMPOSER_DEPENDENCIES } = require( './constants' );
+const { getProjectPath } = require( './file' );
+
+const cp = require( 'child_process' );
+
+/**
+ * Run a command.
+ *
+ * This function is a wrapper to simplify running commands. This function
+ * executes the given command with the given arguments and terminates the
+ * process if an error occurs.
+ *
+ * @function
+ * @since 1.0.0
+ * @param {string} command Command to run.
+ * @param {array} args Command arguments.
+ * @returns {int} Status (exit code) returned by the command.
+ */
+const runCommand = ( command, args = [] ) => {
+    // TODO: add verbose
     const { status, stderr, error } = cp.spawnSync( command, args );
     if ( status !== 0 ) {
         const fullCommand = [ command, args.join( ' ' ) ].join( ' ' );
