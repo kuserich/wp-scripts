@@ -69,4 +69,22 @@ describe( 'getAllFilesInDirectory', () => {
 		const expectedEntries = [ '/tmp/dir/file21', '/tmp/dir/file22', '/tmp/dir/nested/file31', '/tmp/file11', '/tmp/file12' ];
 		expect( getAllFilesInDirectory( directory ) ).toStrictEqual( expectedEntries );
 	} );
+	it( 'Should filter ignored files', () => {
+		const directory = '/tmp';
+		const ignoredFiles = [ 'file21', 'file22' ];
+		const expectedEntries = [ '/tmp/dir/nested/file31', '/tmp/file11', '/tmp/file12' ];
+		expect( getAllFilesInDirectory( directory, ignoredFiles ) ).toStrictEqual( expectedEntries );
+	});
+	it( 'Should filter ignored directories', () => {
+		const directory = '/tmp';
+		const ignoredFiles = [ 'dir' ];
+		const expectedEntries = [ '/tmp/file11', '/tmp/file12' ];
+		expect( getAllFilesInDirectory( directory, ignoredFiles ) ).toStrictEqual( expectedEntries );
+	} );
+	it( 'Should filter ignored glob patterns', () => {
+		const directory = '/tmp';
+		const ignoredFiles = [ 'file*' ];
+		const expectedEntries = [];
+		expect( getAllFilesInDirectory( directory, ignoredFiles ) ).toStrictEqual( expectedEntries );
+	} );
 } );
