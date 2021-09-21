@@ -8,7 +8,7 @@ const { SCRIPTS_DIR } = require( './constants' );
  *
  * @see    https://nodejs.org/api/fs.html
  */
-const { existsSync } = require( 'fs' );
+const { existsSync, readdirSync, statSync } = require( 'fs' );
 
 /**
  * Built-in Node library containing utilities for working with file
@@ -83,6 +83,18 @@ const getProjectPath = ( fileOrFolder ) => path.join( process.cwd(), fileOrFolde
  */
 const getScriptsDirPath = () => {
 	return path.join( path.dirname( __dirname ), SCRIPTS_DIR );
+};
+
+const getAllFilesInDirectory = ( directoryPath, foundFiles = [] ) => {
+	const files = readdirSync( directoryPath );
+	for ( let i = 0; i < files.length; i++ ) {
+		const filePath = path.join( directoryPath, files[i] );
+		if ( statSync( filePath ).isDirectory() ) {
+			return getAllFilesInDirectory( filePath, foundFiles );
+		}
+		foundFiles.push( filePath );
+	}
+	return foundFiles;
 };
 
 /**

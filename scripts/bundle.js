@@ -94,6 +94,7 @@ const buildZipFromPackage = () => {
 		const filePath = getProjectPath( fileName );
 		if ( lstatSync( filePath ).isDirectory() ) {
 			archive.directory( filePath, fileName );
+
 			addedFiles[ fileName ] = getHumanReadableSize( lstatSync( filePath ).size );
 		} else {
 			archive.append( createReadStream( filePath ), { name: fileName } );
