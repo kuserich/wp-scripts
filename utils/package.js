@@ -23,12 +23,11 @@ const cp = require( 'child_process' );
  * runCommand( 'npm', [ 'run', 'build' ] );
  */
 const runCommand = ( command, args = [], options = {} ) => {
-	const { status, stderr } = cp.spawnSync( command, args, options );
+	const { status } = cp.spawnSync( command, args, options );
 	if ( status !== 0 ) {
 		const fullCommand = [ command, args.join( ' ' ) ].join( ' ' );
 		console.error( `Process exited with code ${ status }` );
-		console.error( `Command ${ fullCommand }` );
-		console.error( stderr.toString( 'utf8' ) );
+		console.error( `Command: ${ fullCommand }` );
 		process.exit();
 	}
 	return status;

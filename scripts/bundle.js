@@ -63,9 +63,10 @@ const getZipFileList = () => {
  * @function
  * @since       1.0.0
  */
-const buildZipFromPackage = () => {
+const buildZipFromPackage = ( archiveName ) => {
 	// Create a file to stream archive data to.
-	const output = createWriteStream( getProjectPath( 'plugin.zip' ) );
+	const archivePath = getProjectPath( archiveName );
+	const output = createWriteStream( archivePath );
 	const archive = archiver( 'zip' ); // TODO: can we use compression?
 
 	archive.on( 'warning', function ( warning ) {
@@ -74,7 +75,8 @@ const buildZipFromPackage = () => {
 	} );
 
 	archive.on( 'error', function ( error ) {
-		throw error;
+		console.error( error );
+		process.exit( 1 );
 	} );
 
 	// listen for all archive data to be written
@@ -82,6 +84,8 @@ const buildZipFromPackage = () => {
 	output.on( 'close', function () {
 		console.log( '===' );
 		console.log( `${ getHumanReadableSize( archive.pointer() ) } total` );
+		console.log();
+		console.log( `File saved to ${ archivePath }.zip` );
 	} );
 
 	// Pipe archive data to the file.
@@ -107,5 +111,15 @@ const buildZipFromPackage = () => {
 	}
 };
 
+
+const args = process.argv.slice( 2 );
+
+if ( ! args || args.length !== 1 ) {
+	console.error( `Archive name must be provided.` );
+	console.error( `e.g. sixa-wp-scripts bundle sixa-block-myblock` );
+	process.exit( 1 );
+}
+const archiveName = args[0];
+
 // This file is invoked with `node` and must thus execute the script operation.
-buildZipFromPackage();
+buildZipFromPackage( archiveName );
