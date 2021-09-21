@@ -8,7 +8,7 @@ const { SCRIPTS_DIR } = require( './constants' );
  *
  * @see    https://nodejs.org/api/fs.html
  */
-const { existsSync, readdirSync, statSync, lstatSync } = require( 'fs' );
+const { existsSync, readdirSync, statSync } = require( 'fs' );
 
 /**
  * Built-in Node library containing utilities for working with file
