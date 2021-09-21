@@ -139,8 +139,11 @@ const getScriptPath = ( name ) => {
  * // => string '1.1kB'
  */
 const getHumanReadableSize = ( sizeInBytes ) => {
-	if ( sizeInBytes > 1024 ) {
-		return `${Math.round( sizeInBytes / 1024 * 10) / 10}kB`;
+	if ( sizeInBytes >= 1048576 ) {
+		return `${Math.round( sizeInBytes / 1024 / 1024 * 10) / 10}MB`;
+	}
+	if ( sizeInBytes >= 1024 ) {
+		return `${Math.round( sizeInBytes / 1024 * 10) / 10}KB`;
 	}
 	return `${sizeInBytes}B`;
 }

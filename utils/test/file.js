@@ -1,4 +1,4 @@
-const { pathExists, getProjectPath, existsInProject, getAllFilesInDirectory } = require( '../file' );
+const { pathExists, getProjectPath, existsInProject, getHumanReadableSize, getAllFilesInDirectory } = require( '../file' );
 
 const { fs } = require( 'memfs' );
 const { mkdirSync, openSync, closeSync, readdirSync } = fs;
@@ -46,6 +46,20 @@ describe( 'getProjectPath', () => {
         const projectRoot = process.cwd();
         const fileName = 'filename';
         expect( getProjectPath( fileName ) ).toEqual( `${ projectRoot }/${ fileName }` );
+    });
+});
+
+describe( 'getHumanReadableSize', () => {
+    it( 'Should return byte value for values under 1024', () => {
+        expect( getHumanReadableSize( 0 ) ).toBe( '0B' );
+        expect( getHumanReadableSize( 1023 ) ).toBe( '1023B' );
+    });
+    it( 'Should return kilobyte value for values from 1024 and below 1024^2', () => {
+        expect( getHumanReadableSize( 1024 ) ).toBe( '1KB' );
+        expect( getHumanReadableSize( 1048400 ) ).toBe( '1023.8KB' );
+    });
+    it( 'Should return megabyte value for values above 1024^2', () => {
+        expect( getHumanReadableSize( 2621440 ) ).toBe( '2.5MB' );
     });
 });
 
