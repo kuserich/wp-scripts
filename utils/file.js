@@ -85,14 +85,25 @@ const getScriptsDirPath = () => {
 	return path.join( path.dirname( __dirname ), SCRIPTS_DIR );
 };
 
+/**
+ * Return a list of all files in the given directory.
+ * This function is recursive and traverses subdirectories.
+ *
+ * @function
+ * @since     1.0.0
+ * @param     {string}    directoryPath    Path to traverse.
+ * @param     {array}     foundFiles       All files found so far (for recursion).
+ * @return    {array}                      All files in and below the given path.
+ */
 const getAllFilesInDirectory = ( directoryPath, foundFiles = [] ) => {
 	const files = readdirSync( directoryPath );
 	for ( let i = 0; i < files.length; i++ ) {
 		const filePath = path.join( directoryPath, files[i] );
 		if ( statSync( filePath ).isDirectory() ) {
-			return getAllFilesInDirectory( filePath, foundFiles );
+			foundFiles = getAllFilesInDirectory( filePath, foundFiles );
+		} else {
+			foundFiles.push( filePath );
 		}
-		foundFiles.push( filePath );
 	}
 	return foundFiles;
 };
@@ -141,4 +152,5 @@ module.exports = {
 	getScriptsDirPath,
 	getScriptPath,
 	getHumanReadableSize,
+	getAllFilesInDirectory,
 };

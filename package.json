@@ -25,13 +25,18 @@
   "scripts": {
     "format": "wp-scripts format",
     "lint:js": "wp-scripts lint-js",
-    "lint:js-fix": "wp-scripts lint-js --fix"
+    "lint:js-fix": "wp-scripts lint-js --fix",
+    "test:unit": "wp-scripts test-unit-js",
+    "test:unit:help": "wp-scripts test-unit-js --help",
+    "test:unit:watch": "wp-scripts test-unit-js --watch",
+    "test:unit:debug": "wp-scripts --inspect-brk test-unit-js --runInBand --no-cache"
   },
   "bin": {
     "sixa-wp-scripts": "./bin/wp-scripts.js"
   },
   "devDependencies": {
     "@wordpress/scripts": "^18.0.1",
-    "archiver": "^5.3.0"
+    "archiver": "^5.3.0",
+    "memfs": "^3.3.0"
   }
 }
