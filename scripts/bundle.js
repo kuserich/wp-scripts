@@ -53,7 +53,7 @@ const getIgnoredFiles = () => {
  */
 const getZipFileList = () => {
 	const ignoredFiles = getIgnoredFiles();
-	return getAllFilesInDirectory( '.', ignoredFiles );
+	return getAllFilesInDirectory( '.', ignoredFiles ).filter( ( file ) => ! ignoredFiles.includes( file ) );
 };
 
 /**

@@ -98,10 +98,11 @@ const getAllFilesInDirectory = ( directoryPath, ignoredFiles = [], foundFiles = 
 	const files = readdirSync( directoryPath );
 	for ( let i = 0; i < files.length; i++ ) {
 		const fileName = files[ i ];
-		if ( ignoredFiles.includes( fileName ) ) {
+		const filePath = path.join( directoryPath, fileName );
+
+		if ( ignoredFiles.includes( filePath ) ) {
 			continue;
 		}
-		const filePath = path.join( directoryPath, fileName );
 		if ( statSync( filePath ).isDirectory() ) {
 			foundFiles = getAllFilesInDirectory( filePath, ignoredFiles, foundFiles );
 		} else {
