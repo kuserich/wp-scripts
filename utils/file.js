@@ -156,7 +156,7 @@ const getScriptPath = ( name ) => {
  *
  * @function
  * @since       1.0.0
- * @param {int} sizeInBytes Integer value.
+ * @param {number} sizeInBytes Integer value.
  * @return      {string}                   Human readable file size.
  * @example
  *
