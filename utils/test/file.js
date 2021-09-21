@@ -1,4 +1,4 @@
-const { pathExists, getAllFilesInDirectory } = require( '../file' );
+const { pathExists, getProjectPath, existsInProject, getAllFilesInDirectory } = require( '../file' );
 
 const { fs } = require( 'memfs' );
 const { mkdirSync, openSync, closeSync, readdirSync } = fs;
@@ -7,6 +7,8 @@ jest.mock( 'fs' );
 
 // Build test filesystem
 beforeAll(() => {
+    mkdirSync( process.cwd(), { recursive: true } );
+    closeSync( openSync( `${ process.cwd() }/projectfile`, 'w' ) );
     mkdirSync( '/tmp/dir/nested', {recursive: true } );
     closeSync( openSync( '/tmp/file11', 'w' ) );
     closeSync( openSync( '/tmp/file12', 'w' ) );
@@ -23,6 +25,19 @@ describe( 'pathExists', () => {
         expect( pathExists( '/somethingthat/doesnot.exist' ) ).toBe( false );
     });
 });
+
+describe( 'getProjectPath', () => {
+    it( 'Should return project root when given an empty string', () => {
+        const projectRoot = process.cwd();
+        expect( getProjectPath( '' ) ).toEqual( projectRoot );
+    });
+    it( 'Should return project path when given a string value', () => {
+        const projectRoot = process.cwd();
+        const fileName = 'filename';
+        expect( getProjectPath( fileName ) ).toEqual( `${ projectRoot }/${ fileName }` );
+    });
+});
+
 
 describe( 'getAllFilesInDirectory', () => {
     it( 'Should return all files in a directory recursively', () => {
