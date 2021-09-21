@@ -98,6 +98,7 @@ const getScriptsDirPath = () => {
  * @function
  * @since     1.0.0
  * @param {string} directoryPath Path to traverse.
+ * @param {Array} ignoredFiles Files to ignore during traversal.
  * @param {Array}  foundFiles    All files found so far (for recursion).
  * @return    {Array}                      All files in and below the given path.
  */
