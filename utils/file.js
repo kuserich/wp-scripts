@@ -19,6 +19,13 @@ const { existsSync, readdirSync, statSync, lstatSync } = require( 'fs' );
 const path = require( 'path' );
 
 /**
+ * Node library to convert glob expressions into JavaScript `RegExp` objects.
+ *
+ * @see    https://github.com/isaacs/minimatch
+ */
+const minimatch = require( 'minimatch' );
+
+/**
  * Return true if the given file or folder exists. Return false otherwise.
  *
  * This function is used as a wrapper around `existsSync` from `fs` so that
@@ -96,14 +103,17 @@ const getScriptsDirPath = () => {
  */
 const getAllFilesInDirectory = ( directoryPath, ignoredFiles = [], foundFiles = [] ) => {
 	const files = readdirSync( directoryPath );
+	outer:
 	for ( let i = 0; i < files.length; i++ ) {
 		const fileName = files[ i ];
 		const filePath = path.join( directoryPath, fileName );
 
 		// Skip this iteration if the file or directory name is included in the
 		// list of ignored files.
-		if ( ignoredFiles.includes( fileName ) ) {
-			continue;
+		for ( let j = 0; j < ignoredFiles.length; j++ ) {
+			if ( minimatch( fileName, ignoredFiles[j] ) ) {
+				continue outer;
+			}
 		}
 
 		if ( statSync( filePath ).isDirectory() ) {
