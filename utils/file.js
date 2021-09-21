@@ -8,7 +8,7 @@ const { SCRIPTS_DIR } = require( './constants' );
  *
  * @see    https://nodejs.org/api/fs.html
  */
-const { existsSync, readdirSync, statSync } = require( 'fs' );
+const { existsSync, readdirSync, statSync, lstatSync } = require( 'fs' );
 
 /**
  * Built-in Node library containing utilities for working with file
@@ -94,12 +94,16 @@ const getScriptsDirPath = () => {
  * @param {Array}  foundFiles    All files found so far (for recursion).
  * @return    {Array}                      All files in and below the given path.
  */
-const getAllFilesInDirectory = ( directoryPath, foundFiles = [] ) => {
+const getAllFilesInDirectory = ( directoryPath, ignoredFiles = [], foundFiles = [] ) => {
 	const files = readdirSync( directoryPath );
 	for ( let i = 0; i < files.length; i++ ) {
-		const filePath = path.join( directoryPath, files[ i ] );
+		const fileName = files[ i ];
+		if ( ignoredFiles.includes( fileName ) ) {
+			continue;
+		}
+		const filePath = path.join( directoryPath, fileName );
 		if ( statSync( filePath ).isDirectory() ) {
-			foundFiles = getAllFilesInDirectory( filePath, foundFiles );
+			foundFiles = getAllFilesInDirectory( filePath, ignoredFiles, foundFiles );
 		} else {
 			foundFiles.push( filePath );
 		}
@@ -112,7 +116,7 @@ const getAllFilesInDirectory = ( directoryPath, foundFiles = [] ) => {
  *
  * @function
  * @since     1.0.0
- * @param     {string}    name    Name of the script file.
+ * @param {string} name Name of the script file.
  * @return    {string}            Absolute path to the script file in this package.
  * @example
  *
@@ -129,7 +133,7 @@ const getScriptPath = ( name ) => {
  *
  * @function
  * @since       1.0.0
- * @param       {int}       sizeInBytes    Integer value.
+ * @param {int} sizeInBytes Integer value.
  * @return      {string}                   Human readable file size.
  * @example
  *

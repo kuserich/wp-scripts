@@ -1,14 +1,14 @@
 /**
  * Internal dependencies.
  */
-const { getProjectPath, BUNDLE_IGNORE, NPM_IGNORE, GIT_IGNORE, existsInProject, getHumanReadableSize } = require( '../utils' );
+const { getProjectPath, BUNDLE_IGNORE, NPM_IGNORE, GIT_IGNORE, existsInProject, getHumanReadableSize, getAllFilesInDirectory } = require( '../utils' );
 
 /**
  * Built-in Node library to interact with the file system.
  *
  * @see    https://nodejs.org/api/fs.html
  */
-const { readFileSync, readdirSync, createWriteStream, lstatSync, createReadStream, statSync } = require( 'fs' );
+const { readFileSync, readdirSync, createWriteStream, createReadStream, statSync } = require( 'fs' );
 
 /**
  * Node library to build archives.
@@ -53,7 +53,7 @@ const getIgnoredFiles = () => {
  */
 const getZipFileList = () => {
 	const ignoredFiles = getIgnoredFiles();
-	return readdirSync( process.cwd() ).filter( ( file ) => ! ignoredFiles.includes( file ) );
+	return getAllFilesInDirectory( '.', ignoredFiles );
 };
 
 /**
@@ -86,19 +86,13 @@ const buildZipFromPackage = () => {
 
 	// Pipe archive data to the file.
 	archive.pipe( output );
-
 	const filesToAdd = getZipFileList();
 	const addedFiles = {};
 	for ( let i = 0; i < filesToAdd.length; i++ ) {
 		const fileName = filesToAdd[ i ];
-		const filePath = getProjectPath( fileName );
-		if ( lstatSync( filePath ).isDirectory() ) {
-			archive.directory( filePath, fileName );
-
-			addedFiles[ fileName ] = getHumanReadableSize( lstatSync( filePath ).size );
-		} else {
-			archive.append( createReadStream( filePath ), { name: fileName } );
-			addedFiles[ fileName ] = getHumanReadableSize( statSync( filePath ).size );
+		if ( ! statSync( fileName ).isDirectory() ) {
+			archive.append( createReadStream( fileName ), { name: fileName } );
+			addedFiles[ fileName ] = getHumanReadableSize( statSync( fileName ).size );
 		}
 	}
 	// finalize the archive (ie we are done appending files but streams have to finish yet)
@@ -109,7 +103,7 @@ const buildZipFromPackage = () => {
 	const keys = Object.keys( addedFiles );
 	for ( let i = 0; i < keys.length; i++ ) {
 		const key = keys[ i ];
-		console.log( `${ addedFiles[ key ] } ${ key }` );
+		console.log( `${ addedFiles[ key ].padEnd( 9, ' ' ) } ${ key }` );
 	}
 };
 

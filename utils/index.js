@@ -2,7 +2,7 @@
  * Internal dependencies.
  */
 const { UNUSED_COMPOSER_DEPENDENCIES, BUNDLE_IGNORE, GIT_IGNORE, NPM_IGNORE } = require( './constants' );
-const { existsInProject, getProjectPath, getHumanReadableSize } = require( './file' );
+const { existsInProject, getProjectPath, getHumanReadableSize, getAllFilesInDirectory } = require( './file' );
 const { runCommand } = require( './package' );
 const { runScript } = require( './cli' );
 
@@ -18,6 +18,7 @@ module.exports = {
 	NPM_IGNORE,
 	existsInProject,
 	getProjectPath,
+	getAllFilesInDirectory,
 	getHumanReadableSize,
 	runCommand,
 	runScript,
