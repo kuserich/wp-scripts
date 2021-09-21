@@ -112,7 +112,7 @@ const getAllFilesInDirectory = ( directoryPath, foundFiles = [] ) => {
  *
  * @function
  * @since     1.0.0
- * @param {string} name Name of the script file.
+ * @param     {string}    name    Name of the script file.
  * @return    {string}            Absolute path to the script file in this package.
  * @example
  *
@@ -129,8 +129,8 @@ const getScriptPath = ( name ) => {
  *
  * @function
  * @since       1.0.0
- * @param {int} sizeInBytes Integer value.
- * @return     {string}                   Human readable file size.
+ * @param       {int}       sizeInBytes    Integer value.
+ * @return      {string}                   Human readable file size.
  * @example
  *
  * getHumanReadableSize( 1126 );

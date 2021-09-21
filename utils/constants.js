@@ -3,7 +3,7 @@
  * bundling process.
  *
  * @since    1.0.0
- * @type     {string[]}
+ * @type     {array}
  */
 const UNUSED_COMPOSER_DEPENDENCIES = [ 'php', 'sixach/wp-composer-auto-npm' ];
 
