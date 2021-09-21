@@ -1,7 +1,7 @@
 const { pathExists, getProjectPath, existsInProject, getHumanReadableSize, getAllFilesInDirectory } = require( '../file' );
 
 const { fs } = require( 'memfs' );
-const { mkdirSync, openSync, closeSync, readdirSync } = fs;
+const { mkdirSync, openSync, closeSync } = fs;
 
 jest.mock( 'fs' );
 
