@@ -48,8 +48,8 @@ const getIgnoredFiles = () => {
  * Return an array of files and directories to be included in the `.zip` archive.
  *
  * @function
- * @since     1.0.0
- * @return    {Array}    List of files and directories to add to the `.zip` archive.
+ * @since 1.0.0
+ * @return {Array}    List of files and directories to add to the `.zip` archive.
  */
 const getZipFileList = () => {
 	const ignoredFiles = getIgnoredFiles();
@@ -61,8 +61,8 @@ const getZipFileList = () => {
  * Ignored files are not included in the `.zip` archive.
  *
  * @function
- * @since       1.0.0
- * @param  {string} archiveName Name of the archive that will be created.
+ * @since 1.0.0
+ * @param {string} archiveName Name of the archive that will be created.
  */
 const buildZipFromPackage = ( archiveName ) => {
 	// Create a file to stream archive data to.

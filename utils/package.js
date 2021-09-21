@@ -17,7 +17,7 @@ const cp = require( 'child_process' );
  * @param {string} command Command to run.
  * @param {Array}  args    Command arguments.
  * @param {Object} options Options for the command.
- * @return    {int}                  Status (exit code) returned by the
+ * @return    {number}                  Status (exit code) returned by the
  * @example
  *
  * runCommand( 'npm', [ 'run', 'build' ] );
