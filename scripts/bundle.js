@@ -60,9 +60,9 @@ const getZipFileList = () => {
  * Build a `.zip` archive from the current package.
  * Ignored files are not included in the `.zip` archive.
  *
- * @param  archiveName
  * @function
  * @since       1.0.0
+ * @param  {string} archiveName Name of the archive that will be created.
  */
 const buildZipFromPackage = ( archiveName ) => {
 	// Create a file to stream archive data to.
