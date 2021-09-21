@@ -34,10 +34,12 @@
   "bin": {
     "sixa-wp-scripts": "./bin/wp-scripts.js"
   },
+  "dependencies": {
+    "archiver": "^5.3.0",
+    "minimatch": "^3.0.4"
+  },
   "devDependencies": {
     "@wordpress/scripts": "^18.0.1",
-    "archiver": "^5.3.0",
-    "memfs": "^3.3.0",
-    "minimatch": "^3.0.4"
+    "memfs": "^3.3.0"
   }
 }
