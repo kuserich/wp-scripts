@@ -8,7 +8,7 @@ const { getProjectPath, BUNDLE_IGNORE, NPM_IGNORE, GIT_IGNORE, existsInProject, 
  *
  * @see    https://nodejs.org/api/fs.html
  */
-const { readFileSync, readdirSync, createWriteStream, createReadStream, statSync } = require( 'fs' );
+const { readFileSync, createWriteStream, createReadStream, statSync } = require( 'fs' );
 
 /**
  * Node library to build archives.
