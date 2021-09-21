@@ -74,7 +74,7 @@ describe( 'getAllFilesInDirectory', () => {
 		const ignoredFiles = [ 'file21', 'file22' ];
 		const expectedEntries = [ '/tmp/dir/nested/file31', '/tmp/file11', '/tmp/file12' ];
 		expect( getAllFilesInDirectory( directory, ignoredFiles ) ).toStrictEqual( expectedEntries );
-	});
+	} );
 	it( 'Should filter ignored directories', () => {
 		const directory = '/tmp';
 		const ignoredFiles = [ 'dir' ];

@@ -98,21 +98,20 @@ const getScriptsDirPath = () => {
  * @function
  * @since     1.0.0
  * @param {string} directoryPath Path to traverse.
- * @param {Array} ignoredFiles Files to ignore during traversal.
+ * @param {Array}  ignoredFiles  Files to ignore during traversal.
  * @param {Array}  foundFiles    All files found so far (for recursion).
  * @return    {Array}                      All files in and below the given path.
  */
 const getAllFilesInDirectory = ( directoryPath, ignoredFiles = [], foundFiles = [] ) => {
 	const files = readdirSync( directoryPath );
-	outer:
-	for ( let i = 0; i < files.length; i++ ) {
+	outer: for ( let i = 0; i < files.length; i++ ) {
 		const fileName = files[ i ];
 		const filePath = path.join( directoryPath, fileName );
 
 		// Skip this iteration if the file or directory name is included in the
 		// list of ignored files.
 		for ( let j = 0; j < ignoredFiles.length; j++ ) {
-			const currentIgnoredFile = ignoredFiles[j];
+			const currentIgnoredFile = ignoredFiles[ j ];
 
 			// Enable `/dir` matches to only target directories in the base
 			// of the project (akin to .gitignore).
@@ -121,7 +120,6 @@ const getAllFilesInDirectory = ( directoryPath, ignoredFiles = [], foundFiles = 
 					continue outer;
 				}
 			} else {
-
 				// Skip this iteration if the file should be ignored.
 				if ( minimatch( fileName, currentIgnoredFile ) ) {
 					continue outer;

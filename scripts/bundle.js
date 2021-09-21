@@ -60,6 +60,7 @@ const getZipFileList = () => {
  * Build a `.zip` archive from the current package.
  * Ignored files are not included in the `.zip` archive.
  *
+ * @param  archiveName
  * @function
  * @since       1.0.0
  */
@@ -111,7 +112,6 @@ const buildZipFromPackage = ( archiveName ) => {
 	}
 };
 
-
 const args = process.argv.slice( 2 );
 
 if ( ! args || args.length !== 1 ) {
@@ -119,7 +119,7 @@ if ( ! args || args.length !== 1 ) {
 	console.error( `e.g. sixa-wp-scripts bundle sixa-block-myblock` );
 	process.exit( 1 );
 }
-const archiveName = args[0];
+const archiveName = args[ 0 ];
 
 // This file is invoked with `node` and must thus execute the script operation.
 buildZipFromPackage( archiveName );
