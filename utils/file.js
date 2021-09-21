@@ -100,9 +100,12 @@ const getAllFilesInDirectory = ( directoryPath, ignoredFiles = [], foundFiles = 
 		const fileName = files[ i ];
 		const filePath = path.join( directoryPath, fileName );
 
-		if ( ignoredFiles.includes( filePath ) ) {
+		// Skip this iteration if the file or directory name is included in the
+		// list of ignored files.
+		if ( ignoredFiles.includes( fileName ) ) {
 			continue;
 		}
+
 		if ( statSync( filePath ).isDirectory() ) {
 			foundFiles = getAllFilesInDirectory( filePath, ignoredFiles, foundFiles );
 		} else {
