@@ -119,11 +119,9 @@ const getAllFilesInDirectory = ( directoryPath, ignoredFiles = [], foundFiles = 
 				if ( filePath.startsWith( currentIgnoredFile.substr( 1 ) ) ) {
 					continue outer;
 				}
-			} else {
+			} else if ( minimatch( fileName, currentIgnoredFile ) ) {
 				// Skip this iteration if the file should be ignored.
-				if ( minimatch( fileName, currentIgnoredFile ) ) {
-					continue outer;
-				}
+				continue outer;
 			}
 		}
 
