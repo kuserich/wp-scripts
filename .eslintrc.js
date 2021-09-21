@@ -1,6 +1,6 @@
 module.exports = {
-    extends: [ 'plugin:@wordpress/eslint-plugin/recommended' ],
-    rules: {
-        'no-console': 'off',
-    },
+	extends: [ 'plugin:@wordpress/eslint-plugin/recommended' ],
+	rules: {
+		'no-console': 'off',
+	},
 };
