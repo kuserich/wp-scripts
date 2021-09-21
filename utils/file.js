@@ -111,8 +111,20 @@ const getAllFilesInDirectory = ( directoryPath, ignoredFiles = [], foundFiles = 
 		// Skip this iteration if the file or directory name is included in the
 		// list of ignored files.
 		for ( let j = 0; j < ignoredFiles.length; j++ ) {
-			if ( minimatch( fileName, ignoredFiles[j] ) ) {
-				continue outer;
+			const currentIgnoredFile = ignoredFiles[j];
+
+			// Enable `/dir` matches to only target directories in the base
+			// of the project (akin to .gitignore).
+			if ( currentIgnoredFile.startsWith( '/' ) ) {
+				if ( filePath.startsWith( currentIgnoredFile.substr( 1 ) ) ) {
+					continue outer;
+				}
+			} else {
+
+				// Skip this iteration if the file should be ignored.
+				if ( minimatch( fileName, currentIgnoredFile ) ) {
+					continue outer;
+				}
 			}
 		}
 

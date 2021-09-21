@@ -53,7 +53,7 @@ const getIgnoredFiles = () => {
  */
 const getZipFileList = () => {
 	const ignoredFiles = getIgnoredFiles();
-	return getAllFilesInDirectory( '.', ignoredFiles ).filter( ( file ) => ! ignoredFiles.includes( file ) );
+	return getAllFilesInDirectory( './', ignoredFiles );
 };
 
 /**
@@ -66,7 +66,7 @@ const getZipFileList = () => {
 const buildZipFromPackage = ( archiveName ) => {
 	// Create a file to stream archive data to.
 	const archivePath = getProjectPath( archiveName );
-	const output = createWriteStream( archivePath );
+	const output = createWriteStream( `${ archivePath }.zip` );
 	const archive = archiver( 'zip' ); // TODO: can we use compression?
 
 	archive.on( 'warning', function ( warning ) {
