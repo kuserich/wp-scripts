@@ -88,7 +88,6 @@ Add the following NPM scripts to your `package.json`:
 ```JSON
 {
   "scripts": {
-    "prepare-bundle": "sixa-wp-scripts prepare-bundle",
     "bundle": "sixa-wp-scripts bundle NAME-OF-ARCHIVE"
   }
 }
@@ -96,3 +95,28 @@ Add the following NPM scripts to your `package.json`:
 
 and replace `NAME-OF-ARCHIVE` with the name of your archive without 
 the `.zip` extension.
+
+Running `sixa-wp-scripts bundle NAME-OF-ARCHIVE` traverses the package directory
+and creates a file `NAME-OF-ARCHIVE.zip` including every file in the package
+directory without the files and directories in `.bundleignore`.
+
+#### Preparation
+
+Unless ignored via `.bundleignore`, `sixa-wp-scripts bundle` copies the directories
+`node_modules` and `vendor` into the archive. In many cases, this is the desired
+behaviour. However, in most cases, your local development environment will include
+development and peer dependencies that you do not intend to distribute in the
+plugin archive.
+
+Thus, it is crucial that the bundling is *prepared*. Preparing the bundling process
+mean that we are eliminating all non-production dependencies from library directories.
+This can easily be achieved by adding an NPM script to `package.json` that performs
+the necessary steps, such as:
+
+```JSON
+{
+  "scripts": {
+    "prepare-bundle": "npm i && npm run build && composer install --no-dev --optimize-autoloader"
+  }
+}
+```
