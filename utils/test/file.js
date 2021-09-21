@@ -26,6 +26,17 @@ describe( 'pathExists', () => {
     });
 });
 
+describe( 'existsInProject', () => {
+    it( 'Should return true if the given path exists in the project path', () => {
+        const fileName = 'projectfile';
+        expect( existsInProject( fileName ) ).toBe( true );
+    });
+    it( 'Should return false if the given path does not exists in the project path', () => {
+        const fileName = 'somethingthat/doesnot.exist';
+        expect( existsInProject( fileName ) ).toBe( false );
+    });
+});
+
 describe( 'getProjectPath', () => {
     it( 'Should return project root when given an empty string', () => {
         const projectRoot = process.cwd();
@@ -37,7 +48,6 @@ describe( 'getProjectPath', () => {
         expect( getProjectPath( fileName ) ).toEqual( `${ projectRoot }/${ fileName }` );
     });
 });
-
 
 describe( 'getAllFilesInDirectory', () => {
     it( 'Should return all files in a directory recursively', () => {
