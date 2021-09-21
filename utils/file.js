@@ -26,14 +26,13 @@ const path = require( 'path' );
  *
  * @function
  * @since      1.0.0
- * @param      {string}     fileOrFolder    Path to a file or a folder.
- * @returns    {boolean}                    If the file or folder exists.
+ * @param {string} fileOrFolder Path to a file or a folder.
+ * @return    {boolean}                    If the file or folder exists.
  * @example
  *
  * pathExists( 'src' );
  *
  * // => boolean true
- *
  */
 const pathExists = ( fileOrFolder ) => existsSync( fileOrFolder );
 
@@ -43,7 +42,7 @@ const pathExists = ( fileOrFolder ) => existsSync( fileOrFolder );
  *
  * @function
  * @since     1.0.0
- * @param     {string}     fileOrFolder    Relative path to a file or directory.
+ * @param {string} fileOrFolder Relative path to a file or directory.
  * @return    {boolean}                    True if the path exists, false otherwise.
  * @example
  *
@@ -59,7 +58,7 @@ const existsInProject = ( fileOrFolder ) => pathExists( getProjectPath( fileOrFo
  *
  * @function
  * @since     1.0.0
- * @param     {string}    fileOrFolder    Relative path to a file or directory.
+ * @param {string} fileOrFolder Relative path to a file or directory.
  * @return    {string}                    Absolute path including package directory.
  * @example
  *
@@ -91,14 +90,14 @@ const getScriptsDirPath = () => {
  *
  * @function
  * @since     1.0.0
- * @param     {string}    directoryPath    Path to traverse.
- * @param     {array}     foundFiles       All files found so far (for recursion).
- * @return    {array}                      All files in and below the given path.
+ * @param {string} directoryPath Path to traverse.
+ * @param {Array}  foundFiles    All files found so far (for recursion).
+ * @return    {Array}                      All files in and below the given path.
  */
 const getAllFilesInDirectory = ( directoryPath, foundFiles = [] ) => {
 	const files = readdirSync( directoryPath );
 	for ( let i = 0; i < files.length; i++ ) {
-		const filePath = path.join( directoryPath, files[i] );
+		const filePath = path.join( directoryPath, files[ i ] );
 		if ( statSync( filePath ).isDirectory() ) {
 			foundFiles = getAllFilesInDirectory( filePath, foundFiles );
 		} else {
@@ -113,7 +112,7 @@ const getAllFilesInDirectory = ( directoryPath, foundFiles = [] ) => {
  *
  * @function
  * @since     1.0.0
- * @param     {string}    name    Name of the script file.
+ * @param {string} name Name of the script file.
  * @return    {string}            Absolute path to the script file in this package.
  * @example
  *
@@ -130,8 +129,8 @@ const getScriptPath = ( name ) => {
  *
  * @function
  * @since       1.0.0
- * @param       {int}       sizeInBytes    Integer value.
- * @returns     {string}                   Human readable file size.
+ * @param {int} sizeInBytes Integer value.
+ * @return     {string}                   Human readable file size.
  * @example
  *
  * getHumanReadableSize( 1126 );
@@ -140,13 +139,13 @@ const getScriptPath = ( name ) => {
  */
 const getHumanReadableSize = ( sizeInBytes ) => {
 	if ( sizeInBytes >= 1048576 ) {
-		return `${Math.round( sizeInBytes / 1024 / 1024 * 10) / 10}MB`;
+		return `${ Math.round( ( sizeInBytes / 1024 / 1024 ) * 10 ) / 10 }MB`;
 	}
 	if ( sizeInBytes >= 1024 ) {
-		return `${Math.round( sizeInBytes / 1024 * 10) / 10}KB`;
+		return `${ Math.round( ( sizeInBytes / 1024 ) * 10 ) / 10 }KB`;
 	}
-	return `${sizeInBytes}B`;
-}
+	return `${ sizeInBytes }B`;
+};
 
 module.exports = {
 	pathExists,

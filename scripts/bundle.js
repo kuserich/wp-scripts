@@ -108,8 +108,8 @@ const buildZipFromPackage = () => {
 	console.log( '=== Archive Contents ===' );
 	const keys = Object.keys( addedFiles );
 	for ( let i = 0; i < keys.length; i++ ) {
-		const key = keys[i];
-		console.log( `${ addedFiles[key] } ${key}`);
+		const key = keys[ i ];
+		console.log( `${ addedFiles[ key ] } ${ key }` );
 	}
 };
 

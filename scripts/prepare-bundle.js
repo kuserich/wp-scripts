@@ -9,7 +9,7 @@ const { UNUSED_COMPOSER_DEPENDENCIES, getProjectPath, runCommand } = require( '.
  * with a whitelist of dependencies that are added in `require` but which are not
  * needed in production (e.g. composer plugins).
  *
- * @param     {array}      whitelist    List of package names to skip.
+ * @param {Array} whitelist List of package names to skip.
  * @return    {boolean}                 True if package contains production dependencies.
  */
 const hasComposerProductionDependencies = ( whitelist = UNUSED_COMPOSER_DEPENDENCIES ) => {

@@ -9,8 +9,8 @@ const { getScriptPath, pathExists } = require( './file' );
  *
  * @function
  * @since       1.0.0
- * @param       {string}    name    Name of the script.
- * @param       {array}     args    Arguments for the script.
+ * @param {string} name Name of the script.
+ * @param {Array}  args Arguments for the script.
  * @example
  *
  * runScript( 'bundle' );
@@ -32,11 +32,7 @@ const runScript = ( name, args = [] ) => {
 	// Notice that we are passing an `stdio` option to the child process.
 	// This allows us to retrieve and print stdout and stderr logs to the
 	// console of the main process.
-	runCommand(
-		'node',
-		[ getScriptPath( name ), ...args ],
-		{ stdio: [ process.stdin, process.stdout, process.stderr ] }
-	);
+	runCommand( 'node', [ getScriptPath( name ), ...args ], { stdio: [ process.stdin, process.stdout, process.stderr ] } );
 };
 
 module.exports = {

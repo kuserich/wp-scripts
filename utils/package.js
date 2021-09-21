@@ -14,9 +14,9 @@ const cp = require( 'child_process' );
  *
  * @function
  * @since     1.0.0
- * @param     {string}    command    Command to run.
- * @param     {Array}     args       Command arguments.
- * @param     {object}    options    Options for the command.
+ * @param {string} command Command to run.
+ * @param {Array}  args    Command arguments.
+ * @param {Object} options Options for the command.
  * @return    {int}                  Status (exit code) returned by the
  * @example
  *
