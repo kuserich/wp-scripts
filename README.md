@@ -111,7 +111,10 @@ plugin archive.
 Thus, it is crucial that the bundling is *prepared*. Preparing the bundling process
 means that we eliminate all non-production dependencies from library directories.
 This can easily be achieved by adding an NPM script to `package.json` that performs
-the necessary steps, such as:
+the necessary steps.
+
+The following `prepare-bundle` script can be used as the default script for blocks
+and extensions:
 
 ```JSON
 {
@@ -120,3 +123,15 @@ the necessary steps, such as:
   }
 }
 ```
+
+This `prepare-bundle` script performs the following operations:
+1) Install NPM dependencies (just in case we haven't yet)
+2) Build all assets
+3) Reinstall composer with only production dependencies and optimize the autoloader
+
+For blocks and extensions, rather than deleting `node_modules` after `npm run build`,
+we ignore `node_modules` in `.bundleignore`.
+Luckily, `composer install --no-dev` already removes all non-production dependencies
+from `vendor` and we do not need to clean up after `composer`.
+The flag `--optimize-autoloader` converts PSR-4 and PSR-0 rules into classmap rules,
+which is faster (but inconvenient during development).
