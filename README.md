@@ -8,7 +8,7 @@ for easy distribution and installation.
 ## Installation
 
 ```bash
-npm i @sixach/wp-scripts --save-dev
+npm i @sixa/wp-scripts --save-dev
 ```
 
 ## Usage
@@ -77,7 +77,7 @@ Use a root file name or path to exclude any specific file or directory
 For instance, `/src` matches `./src` but not `./vendor/company/package/src`.
 
 #### Notice
-If no `.bundleignore` is available, `@sixach/wp-scripts` automatically finds and
+If no `.bundleignore` is available, `@sixa/wp-scripts` automatically finds and
 uses the `.npmignore` file. If no `.npmignore` file is present, `.gitignore` is used
 instead.
 If none of these files are present, no files are ignored.
