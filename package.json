@@ -41,5 +41,8 @@
   "devDependencies": {
     "@wordpress/scripts": "18.0.1",
     "memfs": "3.3.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
