@@ -40,7 +40,7 @@
   },
   "devDependencies": {
     "@wordpress/scripts": "18.1.0",
-    "memfs": "3.3.0"
+    "memfs": "3.4.0"
   },
   "publishConfig": {
     "access": "public"
