@@ -39,7 +39,7 @@
     "minimatch": "3.1.2"
   },
   "devDependencies": {
-    "@wordpress/scripts": "18.1.0",
+    "@wordpress/scripts": "22.0.0",
     "memfs": "3.4.1"
   },
   "publishConfig": {
