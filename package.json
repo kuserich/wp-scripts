@@ -36,7 +36,7 @@
   },
   "dependencies": {
     "archiver": "5.3.0",
-    "minimatch": "3.1.2"
+    "minimatch": "5.1.0"
   },
   "devDependencies": {
     "@wordpress/scripts": "18.1.0",
